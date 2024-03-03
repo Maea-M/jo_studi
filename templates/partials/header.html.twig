@@ -9,8 +9,23 @@
         </ul>
 
         <div class="col-md-3 text-end">
-            <button type="button" class="btn btn-outline-primary me-2">Se connecter</button>
-            <button type="button" class="btn btn-primary">Créer un compte</button>
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+				<p class="m-2">Bienvenue {{ app.user.firstname}}  </p>
+				<a class ="m-2" href="/logout">Se déconnecter</a>
+				
+                {% else %}							
+					<button type="button" class="btn btn-outline-primary me-2">
+                        <a href="/login">Se connecter</a>
+                    </button>
+                    <button type="button" class="btn btn-primary">
+						<a class ="m-2"  href="/register">Créer un compte</a>
+                    </button>
+			{% endif %}	
+						
+			{% if 'ROLE_ADMIN' in app.user.roles|default('undefined') %}
+				<a class ="m-1"  href="/admin">Administration</a>
+			{% endif %}	
+            
         </div>
     </header>
 </div>
