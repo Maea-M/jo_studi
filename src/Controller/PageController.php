@@ -23,4 +23,12 @@ class PageController extends AbstractController
             'controller_name' => 'PageController',
         ]);
     }
+
+    #[Route('/profil', name: 'app_profil')]
+    public function profil(): Response
+    {
+        return $this->render('page/profil.html.twig', [
+            'controller_name' => 'PageController',
+        ]);
+    }
 }

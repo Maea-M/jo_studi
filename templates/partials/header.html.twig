@@ -1,7 +1,7 @@
 <div class="container">
     <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
         <img src="{{ asset('build/images/logostudijo.png')}}"  alt="logo Studi.JO" height="80">
-
+            
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
             <li><a href="#" class="nav-link px-2 link-secondary">Accueil</a></li>
             <li><a href="#" class="nav-link px-2 link-dark">Evènements</a></li>
@@ -9,10 +9,15 @@
         </ul>
 
         <div class="col-md-3 text-end">
-            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            {% if 'ROLE_ADMIN' in app.user.roles|default('undefined') %}
+				<a class ="m-1"  href="/admin">Administration</a>
+			{% endif %}
+
+			{% if 'ROLE_USER' in app.user.roles|default('undefined') %}
 				<p class="m-2">Bienvenue {{ app.user.firstname}}  </p>
-				<a class ="m-2" href="/logout">Se déconnecter</a>
-				
+                <a class ="m-1"  href="/profil">Votre compte</a>
+                <a class ="m-2" href="/logout">Se déconnecter</a>
+
                 {% else %}							
 					<button type="button" class="btn btn-info me-2">
                         <a href="/login">Se connecter</a>
@@ -22,10 +27,6 @@
                     </button>
 			{% endif %}	
 						
-			{% if 'ROLE_ADMIN' in app.user.roles|default('undefined') %}
-				<a class ="m-1"  href="/admin">Administration</a>
-			{% endif %}	
-            
         </div>
     </header>
 </div>
