@@ -3,27 +3,27 @@
         <img src="{{ asset('build/images/logostudijo.png')}}"  alt="logo Studi.JO" height="80">
             
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-            <li><a href="#" class="nav-link px-2 link-secondary">Accueil</a></li>
+            <li><a href="{{ path('app_home') }}" class="nav-link px-2 link-secondary">Accueil</a></li>
             <li><a href="#" class="nav-link px-2 link-dark">Evènements</a></li>
             <li><a href="#" class="nav-link px-2 link-dark">FAQ</a></li>
         </ul>
 
         <div class="col-md-3 text-end">
             {% if 'ROLE_ADMIN' in app.user.roles|default('undefined') %}
-				<a class ="m-1"  href="/admin">Administration</a>
+				<a class ="m-1"  href="{{ path('admin') }}">Administration</a>
 			{% endif %}
 
 			{% if 'ROLE_USER' in app.user.roles|default('undefined') %}
 				<p class="m-2">Bienvenue {{ app.user.firstname}}  </p>
-                <a class ="m-1"  href="/profil">Votre compte</a>
-                <a class ="m-2" href="/logout">Se déconnecter</a>
+                <a class ="m-1"  href="{{ path('app_profil') }}"">Votre compte</a>
+                <a class ="m-2" href="{{ path('app_logout') }}">Se déconnecter</a>
 
                 {% else %}							
 					<button type="button" class="btn btn-info me-2">
-                        <a href="/login">Se connecter</a>
+                        <a href="{{ path('app_login') }}">Se connecter</a>
                     </button>
                     <button type="button" class="btn btn-info">
-						<a class ="m-2"  href="/register">Créer un compte</a>
+						<a class ="m-2"  href="{{ path('app_register') }}">Créer un compte</a>
                     </button>
 			{% endif %}	
 						
