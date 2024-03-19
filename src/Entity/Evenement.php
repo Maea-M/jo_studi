@@ -2,12 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\TicketRepository;
+use App\Repository\EvenementRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: TicketRepository::class)]
-class Ticket
+#[ORM\Entity(repositoryClass: EvenementRepository::class)]
+class Evenement
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -23,8 +23,8 @@ class Ticket
     #[ORM\Column(length: 255)]
     private ?string $location = null;
 
-    #[ORM\ManyToOne(inversedBy: 'tickets')]
-    private ?User $user = null;
+    #[ORM\Column]
+    private ?int $place = null;
 
     public function getId(): ?int
     {
@@ -67,14 +67,14 @@ class Ticket
         return $this;
     }
 
-    public function getUser(): ?User
+    public function getPlace(): ?int
     {
-        return $this->user;
+        return $this->place;
     }
 
-    public function setUser(?User $user): static
+    public function setPlace(int $place): static
     {
-        $this->user = $user;
+        $this->place = $place;
 
         return $this;
     }

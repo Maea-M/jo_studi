@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Evenement;
 use App\Entity\Ticket;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -29,6 +30,6 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Utilisateur', 'fas fa-users', User::class);
-        yield MenuItem::linkToCrud('Evènements sportifs', 'fas fa-list', Ticket::class);
+        yield MenuItem::linkToCrud('Evènements sportifs', 'fas fa-list', Evenement::class);
     }
 }

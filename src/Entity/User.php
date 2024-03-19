@@ -56,15 +56,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $pathticket = null;
 
-    #[ORM\OneToMany(targetEntity: Ticket::class, mappedBy: 'user')]
-    private Collection $tickets;
-
-    public function __construct()
-    {
-        $this->tickets = new ArrayCollection();
-    }
-
-
     public function getId(): ?int
     {
         return $this->id;
@@ -183,36 +174,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPathticket(?string $pathticket): static
     {
         $this->pathticket = $pathticket;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Ticket>
-     */
-    public function getTickets(): Collection
-    {
-        return $this->tickets;
-    }
-
-    public function addTicket(Ticket $ticket): static
-    {
-        if (!$this->tickets->contains($ticket)) {
-            $this->tickets->add($ticket);
-            $ticket->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTicket(Ticket $ticket): static
-    {
-        if ($this->tickets->removeElement($ticket)) {
-            // set the owning side to null (unless already changed)
-            if ($ticket->getUser() === $this) {
-                $ticket->setUser(null);
-            }
-        }
 
         return $this;
     }
