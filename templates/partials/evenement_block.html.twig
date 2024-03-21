@@ -1,0 +1,13 @@
+<div class="col-md-4 my-2 d-flex">
+	<div class="card w-100">
+		{% if evenement.imageName %}
+			<img src="{{ vich_uploader_asset(evenement, 'imageFile') }}" class="card-img-top" alt="dessin sport {{ evenement.sport }}">
+		{% else %}
+			<img src="{{ asset('build/images/default-evenement.jpg') }}" class="card-img-top" alt="dessin sport {{ evenement.sport }}">
+		{% endif %}
+		<div class="card-body">
+			<h5 class="card-title">{{ evenement.sport }}</h5>
+			<a href="{{ path('app_evenement_show', {'id': evenement.id}) }}" class="btn btn-primary">Voir la fiche</a>
+		</div>
+	</div>
+</div>

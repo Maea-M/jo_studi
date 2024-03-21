@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Evènements{% endblock %}
+
+{% block body %}
+    <h1>JO Studi  2024! Evènements sportifs</h1>
+
+    <div class="row text-center">
+        {% for evenement in evenements %}
+            {% include "partials/evenement_block.html.twig" %}
+        {% endfor %}
+    </div>
+
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Evenement sportif
+{% endblock %}
+
+{% block body %}
+	<h1>{{ evenement.sport }}</h1>
+	<div class="row">
+		<div class="col">
+			Date et heure :
+			{% if evenement.date %}
+				{{ evenement.date.format_datetime('full', 'full', locale='fr') }}
+			{% else %}
+				N/C
+			{% endif %}
+
+		</div>
+		<div class="col">
+			Lieu :
+			{% if evenement.location %}
+				<p> {{ evenement.location }} </p>
+			{% else %}
+				N/C
+			{% endif %}
+		</div>
+
+		<div class="col">
+			Nombre de places :
+			{% if evenement.place %}
+				<p> {{ evenement.place}} </p>
+			{% else %}
+				N/C
+			{% endif %}
+		</div>
+	</div>
+
+	<div class="row">
+		<h2>Réserver un place</h2>
+		{% if user %}
+			
+		{% else %}
+			<p>Vous devez être connecté pour pouvoir réserver cette session. Rendez-vous sur la page
+				<a href="{{ path('app_login') }}">connexion</a>
+			</p>
+		{% endif %}
+
+	</div>
+
+{% endblock %}
