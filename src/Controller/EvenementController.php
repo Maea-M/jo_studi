@@ -18,7 +18,6 @@ class EvenementController extends AbstractController
     public function index(EvenementRepository $evenementRepository): Response
     {
         $evenements = $evenementRepository->findBy([], ['id'=>'DESC']);
-        dump($evenements);
         return $this->render('evenement/index.html.twig', [
             'evenements' => $evenements,
         ]);
