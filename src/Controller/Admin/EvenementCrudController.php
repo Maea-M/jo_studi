@@ -22,13 +22,13 @@ class EvenementCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         $mappingsParams = $this->getParameter('vich_uploader.mappings');
-        $moviesImagePath =  $mappingsParams['evenements']['uri_prefix'];
+        $evenementImagePath =  $mappingsParams['evenements']['uri_prefix'];
 
         yield TextField::new('sport', 'Sport');
         yield DateTimeField::new('date', 'Date');
         yield TextField::new('location', 'Lieu');
         yield TextareaField::new('imageFile')->setFormType(VichImageType::class)->hideOnIndex();
-        yield ImageField::new('imageName')->setBasePath($moviesImagePath)->hideOnForm();
+        yield ImageField::new('imageName')->setBasePath($evenementImagePath)->hideOnForm();
     }
 
 }

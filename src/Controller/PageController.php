@@ -18,7 +18,7 @@ class PageController extends AbstractController
         $evenements = $evenementRepository->findBy([], ['id'=>'DESC'], $limit);
 
         return $this->render('page/index.html.twig', [
-            'controller_name' => 'PageController',
+            'evenements' => $evenements,
         ]);
     }
 

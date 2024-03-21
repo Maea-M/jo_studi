@@ -13,10 +13,18 @@
         <h1 class="display-5 fw-bold lh-1 mb-3">Studi.Jeux Olympiques 2024 !</h1>
         <p class="lead">Bienvenue sur le site officiel de la billeterie des Jeux olympiques Studi 2024! Pour vous connecter à votre compte ou pour en créer un, cliquez ci-dessous :</p>
         <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-          <button type="button" class="btn btn-primary btn-lg px-4 me-md-2"><a href="{{ path('app_login') }}">Se connecter</a></button>
-          <button type="button" class="btn btn-outline-secondary btn-lg px-4"><a href="{{ path('app_register') }}">Créer un compte</a></button>
+          <button type="button" class="btn btn-success btn-lg px-4 me-md-2"><a href="{{ path('app_login') }}">Se connecter</a></button>
+          <button type="button" class="btn btn-success btn-lg px-4"><a href="{{ path('app_register') }}">Créer un compte</a></button>
         </div>
       </div>
+      
+    </div>
+      <div class="row text-center">
+        {% for evenement in evenements %}
+            {% include "partials/evenement_block.html.twig" %}
+        {% endfor %}
     </div>
   </div>
+
+    
 {% endblock %}
