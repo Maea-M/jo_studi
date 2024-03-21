@@ -27,7 +27,6 @@ class EvenementController extends AbstractController
     public function show(Evenement $evenement, Request $request, EntityManagerInterface $entityManager, 
                         Security $security,SessionInterface $session): Response
     {
-        dump($evenement);
         return $this->render('evenement/show.html.twig', [
             'evenement' => $evenement,
         ]);
