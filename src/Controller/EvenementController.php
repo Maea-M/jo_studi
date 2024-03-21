@@ -4,8 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Evenement;
 use App\Repository\EvenementRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 class EvenementController extends AbstractController
@@ -24,8 +28,9 @@ class EvenementController extends AbstractController
     public function show(Evenement $evenement, Request $request, EntityManagerInterface $entityManager, 
                         Security $security,SessionInterface $session): Response
     {
+        dump($evenement);
         return $this->render('evenement/show.html.twig', [
-            'controller_name' => 'EvenementController',
+            'evenement' => $evenement,
         ]);
     }
 }

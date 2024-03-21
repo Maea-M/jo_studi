@@ -4,15 +4,17 @@ namespace App\Controller;
 
 use App\Repository\EvenementRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 class PageController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
-    public function home(EvenementRepository $evenementRepository): Response
+    public function home(EvenementRepository $evenementRepository, ParameterBagInterface $parameterBagInterface): Response
     {
-        $evenements = $evenementRepository->findBy([], ['id'=>'DESC'], 3);
+        $limit = $parameterBagInterface->get('home_evenement_limit');
+        $evenements = $evenementRepository->findBy([], ['id'=>'DESC'], $limit);
         return $this->render('page/index.html.twig', [
             'controller_name' => 'PageController',
             'evenements'=>$evenements,
