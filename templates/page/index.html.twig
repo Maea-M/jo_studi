@@ -19,15 +19,4 @@
       </div>
     </div>
   </div>
-
-<div class="container col-xxl-8 px-4 py-5">
-
-  <h2>Les derniers évènements ajoutés</h2>
-    <div class="row text-center">
-        {% for evenement in evenements %}
-            {% include "partials/evenement_block.html.twig" %}
-        {% endfor %}
-    </div>
-</div>
-
 {% endblock %}
