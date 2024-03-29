@@ -41,6 +41,9 @@ class Evenement
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?float $price = null;
+
 
     public function getId(): ?int
     {
@@ -138,5 +141,17 @@ class Evenement
     public function getImageSize(): ?int
     {
         return $this->imageSize;
+    }
+
+    public function getPrice(): ?float
+    {
+        return $this->price;
+    }
+
+    public function setPrice(?float $price): static
+    {
+        $this->price = $price;
+
+        return $this;
     }
 }

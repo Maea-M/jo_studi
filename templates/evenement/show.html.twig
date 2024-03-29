@@ -42,7 +42,20 @@
 					N/C
 				{% endif %}
 			</div>
+
+			<div>
+				Prix :
+				{% if evenement.price %}
+					{{ evenement.price}}
+				{% else %}
+					N/C
+				{% endif %}
+			</div>
 		</div>
-			
+		
+		<div class="mt-3">
+			<a href="{{path("app_cart_add", {id: evenement.id})}}" class="btn btn-success">
+            <i class="fa-solid fa-circle-plus"></i> Ajouter au panier</a>
+		</div>
 	</div>
 {% endblock %}

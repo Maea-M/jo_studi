@@ -4,16 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Evenement;
 use App\Repository\EvenementRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Bundle\SecurityBundle\Security;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 class EvenementController extends AbstractController
 {
+    /*Page pour afficher tous les évènements sportifs par ordre*/
     #[Route('/evenement', name: 'app_evenement')]
     public function index(EvenementRepository $evenementRepository): Response
     {
@@ -23,12 +21,13 @@ class EvenementController extends AbstractController
         ]);
     }
 
+    /*Page pour afficher 1 seul évnemenent en grand*/
     #[Route('/evenements/{id}', name: 'app_evenement_show')]
-    public function show(Evenement $evenement, Request $request, EntityManagerInterface $entityManager, 
-                        Security $security,SessionInterface $session): Response
+    public function show(Evenement $evenement): Response
     {
         return $this->render('evenement/show.html.twig', [
             'evenement' => $evenement,
         ]);
     }
+
 }
