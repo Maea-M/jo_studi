@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: EvenementRepository::class)]
 #[Vich\Uploadable]
@@ -27,6 +28,7 @@ class Evenement
     private ?string $location = null;
 
     #[ORM\Column]
+    #[Assert\PositiveOrZero(message: 'Le nombre de place ne peut pas être négatif')]
     private ?int $place = null;
 
     #[Vich\UploadableField(mapping: 'evenements', fileNameProperty: 'imageName', size: 'imageSize')]
