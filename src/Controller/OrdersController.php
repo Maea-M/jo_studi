@@ -29,10 +29,6 @@ class OrdersController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
 
-        return $this->render('orders/index.html.twig', [
-            'controller_name' => 'OrdersController',
-        ]);
-
          //Le panier n'est pas vide, on crée la commande
         $order = new Orders();
 
@@ -54,6 +50,7 @@ class OrdersController extends AbstractController
             else {
                 $price = $evenement->getPrice();
                 $place = $place - $quantity;
+                $evenement->setPlace($place);
 
              // On crée le détail de commande
                 $orderDetails->setEvenement($evenement);
