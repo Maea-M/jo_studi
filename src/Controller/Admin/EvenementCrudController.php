@@ -28,6 +28,7 @@ class EvenementCrudController extends AbstractCrudController
         yield DateTimeField::new('date', 'Date');
         yield TextField::new('location', 'Lieu');
         yield NumberField::new('place', 'Places disponibles');
+        yield NumberField::new('price', 'Prix');
         yield TextareaField::new('imageFile')->setFormType(VichImageType::class)->hideOnIndex();
         yield ImageField::new('imageName')->setBasePath($evenementImagePath)->hideOnForm();
     }
