@@ -8,7 +8,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
-
+use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class EvenementCrudController extends AbstractCrudController
@@ -27,7 +27,7 @@ class EvenementCrudController extends AbstractCrudController
         yield TextField::new('sport', 'Sport');
         yield DateTimeField::new('date', 'Date');
         yield TextField::new('location', 'Lieu');
-        yield TextField::new('place', 'Places disponibles');
+        yield NumberField::new('place', 'Places disponibles');
         yield TextareaField::new('imageFile')->setFormType(VichImageType::class)->hideOnIndex();
         yield ImageField::new('imageName')->setBasePath($evenementImagePath)->hideOnForm();
     }
