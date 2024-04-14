@@ -6,7 +6,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Stripe\Stripe;
 use Stripe\Checkout\Session;
 require_once '../vendor/autoload.php';
-require_once '../secrets.php';
+require_once '../secret.php';
 
 
 
