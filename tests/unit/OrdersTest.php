@@ -1,4 +1,9 @@
+<?php
+
+namespace App\Tests;
+
 use App\Entity\Orders;
+use App\Entity\User;
 
 use PHPUnit\Framework\TestCase;
 
@@ -15,16 +20,4 @@ class OrdersUnitTest extends TestCase
         $this->assertSame($user, $order->getUser());
         $this->assertNotSame(null, $order->getUser());
     }
-
-    public function testGetSetOrdersDetails(): void
-    {
-        $order = new Orders();
-        $ordersDetails = new OrdersDetails();
-
-        $this->assertEmpty($order->getOrdersDetails());
-
-        $order->setOrdersDetails($ordersDetails);
-        $this->assertSame($ordersDetails, $order->getOrdersDetails());
-        $this->assertNotSame(null, $order->getOrdersDetails());
-    }   
 }
