@@ -1,2 +1,2 @@
 <?php
-$clientSecret = '';
+$clientSecret = 'test';

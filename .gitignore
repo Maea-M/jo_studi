@@ -7,7 +7,7 @@
 /public/bundles/
 /var/
 /vendor/
-/secrets.php/
+secrets.php
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###
