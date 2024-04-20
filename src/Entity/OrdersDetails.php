@@ -44,6 +44,9 @@ class OrdersDetails
     #[ORM\JoinColumn(nullable: false)]
     private $evenement;
 
+    #[ORM\Column]
+    private ?bool $isPaid = null;
+
     public function getPrice(): ?int
     {
         return $this->price;
@@ -76,6 +79,18 @@ class OrdersDetails
     public function setEvenement(?Evenement $evenement): self
     {
         $this->evenement = $evenement;
+
+        return $this;
+    }
+
+    public function isIsPaid(): ?bool
+    {
+        return $this->isPaid;
+    }
+
+    public function setIsPaid(bool $isPaid): static
+    {
+        $this->isPaid = $isPaid;
 
         return $this;
     }

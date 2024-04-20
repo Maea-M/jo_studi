@@ -9,16 +9,14 @@
         <h2>Nom : {{ app.user.lastname }}</h2>
     </section>
 
-    <div class="row">
-        {% for element in ordersDetails %}
-        <p>Quantité : {{ element.quantity}}<p>
-        <p>Prix : {{ element.price}}</p>
-        {% endfor %}
-    </div>
-
-
-    <div>
-        <a href="#" class="btn btn-primary">Payer</a>
+        <div class="row">
+            {% for element in ordersDetails %}
+            <p>Quantité : {{ element.quantity}}<p>
+            <p>Prix : {{ element.price}}</p>
+            {% endfor %}
+        </div>    
+        <div>
+        <a href="{{ path('app_payement') }}" class="btn btn-primary">Vérifier votre commande avant de payer</a>
     </div>
     
 {% endblock %}

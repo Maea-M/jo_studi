@@ -21,7 +21,7 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
 
-        //fonction qui génère une clé aléatoire avec des chiffres et des lettres
+       /* //fonction qui génère une clé aléatoire avec des chiffres et des lettres
         function RandomString()
         {
             $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -30,7 +30,7 @@ class RegistrationController extends AbstractController
                 $randstring = $characters[rand(0, strlen($characters))];
         }
         return $randstring;
-    }
+    }*/
 
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
@@ -42,7 +42,7 @@ class RegistrationController extends AbstractController
             );
             
             $user->setRoles(['ROLE_USER']);
-            $user->setKeyfirst(RandomString());
+            $user->setKeyfirst(uniqid());
             $entityManager->persist($user);
             $entityManager->flush();
             // do anything else you need here, like send an email

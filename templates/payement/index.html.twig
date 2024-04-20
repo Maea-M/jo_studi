@@ -1,14 +1,29 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Make Payment{% endblock %}
+{% block title %}Paiement{% endblock %}
 
 {% block body %}
 
+    <section class="bg-light p-3">
+        <h1>Votre commande</h1>
+        <h2>Prénom : {{ app.user.firstname }}</h2>
+        <h2>Nom : {{ app.user.lastname }}</h2>
+    </section>
+        
+    <section>
+        {{ form_start(form) }}
+            <button class="btn btn-success m-3">{{ button_label|default('Payer') }}</button>
+        {{ form_end(form) }}
+
+    </section>
+
+    <section>
+    <a href="{{ path('app_cart') }}">Retour au Panier</a>
+    </section>
+    <!-- problème de redirection
     <form action="/checkout" method="POST">
         <button type="submit" class="btn btn-primary btn-lg">Checkout</button>
     </form>
+    -->
 
-<div>
-
-</div>
 {% endblock %}
