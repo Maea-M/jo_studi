@@ -28,7 +28,7 @@ class PayementController extends AbstractController {
 
     #[IsGranted('ROLE_USER')]
     #[Route('/payement', name: 'app_payement', methods: ['GET', 'POST'])]
-    public function index(Request $request, EntityManagerInterface $entityManager, OrdersDetailsRepository $ordersDetailsRepository): Response
+    public function index(Request $request, EntityManagerInterface $entityManager, OrdersDetails $ordersDetails): Response
     {
         $user = $this->getUser();
 
@@ -37,17 +37,22 @@ class PayementController extends AbstractController {
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
-            // Association de l'utilisateur au paiement
+            // trouver l'utilisateur lié au paiement
             $payement->setUser($user);
-            $ordersDetails = $ordersDetailsRepository->findBy(['isPaid' => false]);
+            //trouver les paiements non faits
+            $payement->setOrdersDetails($ordersDetails);
+            $ordersDetails->getId();
+            $ordersDetails->setIsPaid(true);
+            
+            //dd($oD);
 
+            //changer la bdd
             $payement->setIsPaid(true);
             $payement->setSecondKey(uniqid());
 
-            $ordersDetails->setIsPaid(true);
+            $entityManager->persist($payement);
             $entityManager->persist($ordersDetails);
 
-            $entityManager->persist($payement);
             $entityManager->flush();
 
             return $this->redirectToRoute('success_url');

@@ -20,7 +20,7 @@ class OrdersDetailsController extends AbstractController
     {
         $user = $this->getUser();
 
-        $ordersDetails = $ordersDetailsRepository->findBy(['isPaid' => false]);
+        $ordersDetails = $ordersDetailsRepository->findBy(['IsPaid' => false]);
         return $this->render('orders_details/index.html.twig', [
             'ordersDetails' => $ordersDetails,
             /*dd($ordersDetails)*/
