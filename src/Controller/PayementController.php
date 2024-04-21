@@ -31,7 +31,7 @@ class PayementController extends AbstractController {
     public function index(Request $request, EntityManagerInterface $entityManager, OrdersDetails $ordersDetails): Response
     {
         $user = $this->getUser();
-
+        $ordersDetails = $this->getParameter();
         $payement = new Payement();
         $form = $this->createForm(PayementFormType::class, $payement);
         $form->handleRequest($request);
