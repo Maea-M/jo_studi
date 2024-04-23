@@ -16,6 +16,9 @@ class OrdersDetails
     #[ORM\Column(nullable: true)]
     private ?int $quantity = null;
 
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?Payement $payement = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -95,4 +98,17 @@ class OrdersDetails
 
         return $this;
     }
+
+    public function getPayement(): ?Payement
+    {
+        return $this->payement;
+    }
+
+    public function setPayement(?Payement $payement): static
+    {
+        $this->payement = $payement;
+
+        return $this;
+    }
+
 }

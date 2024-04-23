@@ -4,9 +4,6 @@ namespace App\Entity;
 
 use App\Repository\PayementRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Uid\Uuid;
-
-
 
 #[ORM\Entity(repositoryClass: PayementRepository::class)]
 class Payement

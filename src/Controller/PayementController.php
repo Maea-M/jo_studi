@@ -10,11 +10,13 @@ use App\Repository\OrdersDetailsRepository;
 use App\Repository\OrdersRepository;
 use App\Repository\PayementRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping\Id;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Stripe\Stripe;
 use Stripe\Checkout\Session;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -27,11 +29,11 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class PayementController extends AbstractController {
 
     #[IsGranted('ROLE_USER')]
-    #[Route('/payement', name: 'app_payement', methods: ['GET', 'POST'])]
-    public function index(Request $request, EntityManagerInterface $entityManager, OrdersDetails $ordersDetails): Response
+    #[Route('/payement/', name: 'app_payement')]
+    public function index(Request $request, EntityManagerInterface $entityManager, #[MapEntity] ?OrdersDetails $ordersDetails, OrdersDetailsRepository $ordersDetailsRepository): Response
     {
         $user = $this->getUser();
-        $ordersDetails = $this->getParameter();
+
         $payement = new Payement();
         $form = $this->createForm(PayementFormType::class, $payement);
         $form->handleRequest($request);
@@ -40,18 +42,18 @@ class PayementController extends AbstractController {
             // trouver l'utilisateur lié au paiement
             $payement->setUser($user);
             //trouver les paiements non faits
-            $payement->setOrdersDetails($ordersDetails);
+            dd($ordersDetails);
+
             $ordersDetails->getId();
             $ordersDetails->setIsPaid(true);
             
-            //dd($oD);
 
             //changer la bdd
             $payement->setIsPaid(true);
             $payement->setSecondKey(uniqid());
 
             $entityManager->persist($payement);
-            $entityManager->persist($ordersDetails);
+            //$entityManager->persist($ordersDetails);
 
             $entityManager->flush();
 
