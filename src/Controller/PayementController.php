@@ -12,6 +12,7 @@ use App\Repository\PayementRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\Id;
 use phpDocumentor\Reflection\Types\Object_;
+use PhpParser\Node\Stmt\Foreach_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -46,10 +47,16 @@ class PayementController extends AbstractController {
             $ordersDetails = $ordersDetailsRepository->findBy(['IsPaid'=>false]);
             //dd($ordersDetails);
             $commande= [];
-            foreach($commande as $item=>$value){
+            //foreach ($variable as $key => $value) {
+                # code...
+            //}
+            foreach ($commande as $item=>$value){
                 $ordersDetails = $ordersDetailsRepository->find($item);
                 $ordersDetails->getId();
                 $ordersDetails->setIsPaid(true);
+                $entityManager->persist($ordersDetails);
+                $entityManager->flush();
+
             }
 
             //changer la bdd
@@ -57,7 +64,6 @@ class PayementController extends AbstractController {
             $payement->setSecondKey(uniqid());
             
             $entityManager->persist($payement);
-
             $entityManager->flush();
 
             return $this->redirectToRoute('success_url');
