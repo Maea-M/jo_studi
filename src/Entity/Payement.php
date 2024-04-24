@@ -22,8 +22,8 @@ class Payement
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?ordersDetails $ordersDetails = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?bool $IsPaid = null;
+    #[ORM\Column(type: 'boolean')]
+    private ?bool $IsPaid = false;
 
     public function getId(): ?int
     {

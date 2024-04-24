@@ -11,6 +11,7 @@ use App\Repository\OrdersRepository;
 use App\Repository\PayementRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\Id;
+use phpDocumentor\Reflection\Types\Object_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -42,18 +43,20 @@ class PayementController extends AbstractController {
             // trouver l'utilisateur lié au paiement
             $payement->setUser($user);
             //trouver les paiements non faits
-            dd($ordersDetails);
-
-            $ordersDetails->getId();
-            $ordersDetails->setIsPaid(true);
-            
+            $ordersDetails = $ordersDetailsRepository->findBy(['IsPaid'=>false]);
+            //dd($ordersDetails);
+            $commande= [];
+            foreach($commande as $item=>$value){
+                $ordersDetails = $ordersDetailsRepository->find($item);
+                $ordersDetails->getId();
+                $ordersDetails->setIsPaid(true);
+            }
 
             //changer la bdd
             $payement->setIsPaid(true);
             $payement->setSecondKey(uniqid());
-
+            
             $entityManager->persist($payement);
-            //$entityManager->persist($ordersDetails);
 
             $entityManager->flush();
 

@@ -16,9 +16,6 @@ class OrdersDetails
     #[ORM\Column(nullable: true)]
     private ?int $quantity = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?Payement $payement = null;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -47,8 +44,8 @@ class OrdersDetails
     #[ORM\JoinColumn(nullable: false)]
     private $evenement;
 
-    #[ORM\Column(nullable: true)]
-    private ?bool $IsPaid = null;
+    #[ORM\Column(type: 'boolean')]
+    private ?bool $IsPaid = false;
 
     public function getPrice(): ?int
     {
@@ -95,18 +92,6 @@ class OrdersDetails
     public function setIsPaid(?bool $IsPaid): static
     {
         $this->IsPaid = $IsPaid;
-
-        return $this;
-    }
-
-    public function getPayement(): ?Payement
-    {
-        return $this->payement;
-    }
-
-    public function setPayement(?Payement $payement): static
-    {
-        $this->payement = $payement;
 
         return $this;
     }
