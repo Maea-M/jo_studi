@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\OrdersDetailsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: OrdersDetailsRepository::class)]
@@ -47,6 +49,9 @@ class OrdersDetails
 
     #[ORM\Column(type: 'boolean')]
     private ?bool $IsPaid = false;
+
+    #[ORM\ManyToOne(inversedBy: 'ordersDetails')]
+    private ?Payement $payement = null;
 
     public function getPrice(): ?int
     {
@@ -93,6 +98,18 @@ class OrdersDetails
     public function setIsPaid(?bool $IsPaid): static
     {
         $this->IsPaid = $IsPaid;
+
+        return $this;
+    }
+
+    public function getPayement(): ?Payement
+    {
+        return $this->payement;
+    }
+
+    public function setPayement(?Payement $payement): static
+    {
+        $this->payement = $payement;
 
         return $this;
     }

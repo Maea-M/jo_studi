@@ -2,17 +2,11 @@
 
 namespace App\Controller;
 
-use App\Entity\Orders;
 use App\Entity\OrdersDetails;
 use App\Entity\Payement;
 use App\Form\PayementFormType;
 use App\Repository\OrdersDetailsRepository;
-use App\Repository\OrdersRepository;
-use App\Repository\PayementRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Mapping\Id;
-use phpDocumentor\Reflection\Types\Object_;
-use PhpParser\Node\Stmt\Foreach_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,44 +26,39 @@ class PayementController extends AbstractController {
 
     #[IsGranted('ROLE_USER')]
     #[Route('/payement/', name: 'app_payement')]
-    public function index(Request $request, EntityManagerInterface $entityManager, #[MapEntity] ?OrdersDetails $ordersDetails, OrdersDetailsRepository $ordersDetailsRepository): Response
+    public function index(Request $request, EntityManagerInterface $entityManager, #[MapEntity] ?OrdersDetails $ordersDetails, OrdersDetailsRepository $ordersDetailsRepository ): Response
     {
+        //chercher l'utilisateur
         $user = $this->getUser();
 
+        //instancier un nouveau paiement
         $payement = new Payement();
         $form = $this->createForm(PayementFormType::class, $payement);
         $form->handleRequest($request);
         
+        //création du formulaire
         if ($form->isSubmitted() && $form->isValid()) {
             // trouver l'utilisateur lié au paiement
             $payement->setUser($user);
             //trouver les paiements non faits
-            $ordersDetails = $ordersDetailsRepository->findBy(['IsPaid'=>false]);
-            //dd($ordersDetails);
-            $commande= [];
-            //foreach ($variable as $key => $value) {
-                # code...
-            //}
-            foreach ($commande as $item=>$value){
-                $ordersDetails = $ordersDetailsRepository->find($item);
-                $ordersDetails->getId();
-                $ordersDetails->setIsPaid(true);
-                $entityManager->persist($ordersDetails);
-                $entityManager->flush();
-
-            }
+            $ordersDetailsUndo = $ordersDetailsRepository->findBy(['IsPaid'=>false]);
+            //dd($ordersDetailsUndo);
+            //payement, ispaid... est à null
+            $ordersDetails->setPayement($payement);
+            $ordersDetails->setIsPaid(true);
+            $entityManager->persist($ordersDetails);
+    
 
             //changer la bdd
-            $payement->setIsPaid(true);
             $payement->setSecondKey(uniqid());
-            
+                
             $entityManager->persist($payement);
             $entityManager->flush();
 
             return $this->redirectToRoute('success_url');
         }
 
-        return $this->render('payement/index.html.twig', [
+    return $this->render('payement/index.html.twig', [
         'payement' => $payement,
         'form' => $form->createView(),
     ]);

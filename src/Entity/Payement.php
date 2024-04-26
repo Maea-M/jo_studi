@@ -3,27 +3,35 @@
 namespace App\Entity;
 
 use App\Repository\PayementRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PayementRepository::class)]
 class Payement
 {
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 20, nullable: true, unique: true)]
-    private ?string $secondKey = null;
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $SecondKey = null;
 
-    #[ORM\ManyToOne]
+    #[ORM\ManyToOne(inversedBy: 'payements')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?User $User = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?ordersDetails $ordersDetails = null;
+    #[ORM\OneToMany(mappedBy: 'payement', targetEntity: OrdersDetails::class)]
+    private Collection $ordersDetails;
 
-    #[ORM\Column(type: 'boolean')]
-    private ?bool $IsPaid = false;
+    public function __construct()
+    {
+        $this->ordersDetails = new ArrayCollection();
+    }
+    #[ORM\Column]
+    private ?bool $IsPaid = null;
 
     public function getId(): ?int
     {
@@ -32,12 +40,12 @@ class Payement
 
     public function getSecondKey(): ?string
     {
-        return $this->secondKey;
+        return $this->SecondKey;
     }
 
-    public function setSecondKey(?string $secondKey): static
+    public function setSecondKey(?string $SecondKey): static
     {
-        $this->secondKey = $secondKey;
+        $this->SecondKey = $SecondKey;
 
         return $this;
     }
@@ -54,27 +62,45 @@ class Payement
         return $this;
     }
 
-    public function getOrdersDetails(): ?ordersDetails
+    /**
+     * @return Collection<int, OrdersDetails>
+     */
+    public function getOrdersDetails(): Collection
     {
         return $this->ordersDetails;
     }
 
-    public function setOrdersDetails(?ordersDetails $ordersDetails): static
+    public function addOrdersDetail(OrdersDetails $ordersDetails): static
     {
-        $this->ordersDetails = $ordersDetails;
+        if (!$this->ordersDetails->contains($ordersDetails)) {
+            $this->ordersDetails->add($ordersDetails);
+            $ordersDetails->setPayement($this);
+        }
 
         return $this;
     }
 
+    public function removeOrdersDetails(OrdersDetails $ordersDetails): static
+    {
+        if ($this->ordersDetails->removeElement($ordersDetails)) {
+            // set the owning side to null (unless already changed)
+            if ($ordersDetails->getPayement() === $this) {
+                $ordersDetails->setPayement(null);
+            }
+        }
+
+        return $this;
+    }
     public function isIsPaid(): ?bool
     {
         return $this->IsPaid;
     }
 
-    public function setIsPaid(?bool $IsPaid): static
+    public function setIsPaid(bool $IsPaid): static
     {
         $this->IsPaid = $IsPaid;
 
         return $this;
     }
+
 }
