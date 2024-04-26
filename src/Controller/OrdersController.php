@@ -58,7 +58,8 @@ class OrdersController extends AbstractController
                 return $this->redirectToRoute('app_home');
             }
             else {
-                $price = $evenement->getPrice();
+                $subprice = $evenement->getPrice();
+                $price = $subprice * $quantity;
                 $place = $place - $quantity;
                 $evenement->setPlace($place);
 
