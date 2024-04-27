@@ -22,8 +22,8 @@ class OrdersDetailsRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return OrdersDetails[] Returns an array of OrdersDetails objects
-//     */
+//    * @return OrdersDetails[] Returns an array of OrdersDetails objects
+//    */
 //    public function findByExampleField($value): array
 //    {
 //        return $this->createQueryBuilder('o')
@@ -35,6 +35,7 @@ class OrdersDetailsRepository extends ServiceEntityRepository
 //            ->getResult()
 //        ;
 //    }
+//*/
 
 //    public function findOneBySomeField($value): ?OrdersDetails
 //    {

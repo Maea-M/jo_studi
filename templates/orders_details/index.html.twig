@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Votre panier{% endblock %}
+
+{% block body %}
+    <section class="bg-light p-3">
+        <h1>Votre commande</h1>
+        <h2>Prénom : {{ app.user.firstname }}</h2>
+        <h2>Nom : {{ app.user.lastname }}</h2>
+    </section>
+
+        <div class="row">
+            {% for element in ordersDetails %}
+            <p>Quantité : {{ element.quantity}}<p>
+            <p>Prix de la place: {{ element.price}}</p>
+            {% endfor %}
+        </div>    
+        <div>
+        <a href="{{ path('app_payement') }}" class="btn btn-primary">Vérifier votre commande avant de payer</a>
+    </div>
+    
+{% endblock %}
+

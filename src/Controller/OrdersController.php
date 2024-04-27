@@ -7,17 +7,27 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Repository\EvenementRepository;
-use App\Repository\OrdersRepository;
-use App\Repository\OrdersDetailsRepository;
 use App\Entity\Orders;
 use App\Entity\OrdersDetails;
 use Doctrine\ORM\EntityManagerInterface;
 
-
 class OrdersController extends AbstractController
 {
+    /* NE FONCTIONNE PAS PrOBLEME DE SERVICES???
+    #[Route('/orders_payement', name: 'app_orders_payement')]
+    public function index(Request $request, OrdersDetailsRepository $ordersDetailsRepository, ordersDetails $ordersDetails): Response
+    {
+        $ordersDetails = $ordersDetailsRepository->findAll();
+        $this->$request->getPrice();
+        $this->$request->getEvenement();
+
+        return $this->render('orders/index.html.twig', [
+            'ordersDetails' => $ordersDetails,
+        ]);
+    }
+*/
     #[Route('/orders', name: 'app_orders')]
-    public function index(SessionInterface $session, EvenementRepository $evenementRepository, OrdersRepository $ordersRepository, OrdersDetailsRepository $ordersDetailsRepository, EntityManagerInterface $em): Response
+    public function add(SessionInterface $session, EvenementRepository $evenementRepository, EntityManagerInterface $em): Response
     {
         // vérifier que l'utilisateur est connecté
         $this->denyAccessUnlessGranted('ROLE_USER');
@@ -48,7 +58,8 @@ class OrdersController extends AbstractController
                 return $this->redirectToRoute('app_home');
             }
             else {
-                $price = $evenement->getPrice();
+                $subprice = $evenement->getPrice();
+                $price = $subprice * $quantity;
                 $place = $place - $quantity;
                 $evenement->setPlace($place);
 
@@ -68,6 +79,7 @@ class OrdersController extends AbstractController
         $session->remove('panier');
         
         $this->addFlash('message', 'Commande créée avec succès');
-        return $this->redirectToRoute('app_home');
+        return $this->redirectToRoute('app_orders_details');
     }
+
 }
