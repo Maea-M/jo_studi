@@ -11,8 +11,13 @@
     </section>
         
     <section>
+        <img src="{{ asset('build/images/stripe.png')}}" width="200" height="200" loading="lazy" alt="formualire de paiement" class="d-block mx-lg-auto img-fluid">
+
+    </section>
+
+    <section>
         {{ form_start(form) }}
-            <button class="btn btn-success m-3">{{ button_label|default('Payer') }}</button>
+            <button class="btn btn-success m-3 d-block mx-lg-auto">{{ button_label|default('Payer') }}</button>
         {{ form_end(form) }}
 
     </section>
