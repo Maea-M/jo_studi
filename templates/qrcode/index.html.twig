@@ -1,0 +1,18 @@
+{% block body %}
+	<div>
+		<h2 class="text-align-center">Billet de
+			{{ app.user.lastname }}
+			{{ app.user.firstname }}
+		</h2>
+	</div>			
+	
+	<div>
+		<img src="{{ qrCodeImage }}" alt="qr code" width='250' height='250'>
+	</div>
+        
+	<div>
+		<h2>Studi.JeuxOlympiques vous remercie pour votre commande.</h2>
+	</div>
+			
+	
+{% endblock %}

@@ -53,6 +53,14 @@ class OrdersDetails
     #[ORM\ManyToOne(inversedBy: 'ordersDetails')]
     private ?Payement $payement = null;
 
+    #[ORM\OneToMany(targetEntity: Qrcode::class, mappedBy: 'ordersDetails')]
+    private Collection $qrcodes;
+
+    public function __construct()
+    {
+        $this->qrcodes = new ArrayCollection();
+    }
+
     public function getPrice(): ?int
     {
         return $this->price;
@@ -110,6 +118,36 @@ class OrdersDetails
     public function setPayement(?Payement $payement): static
     {
         $this->payement = $payement;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Qrcode>
+     */
+    public function getQrcodes(): Collection
+    {
+        return $this->qrcodes;
+    }
+
+    public function addQrcode(Qrcode $qrcode): static
+    {
+        if (!$this->qrcodes->contains($qrcode)) {
+            $this->qrcodes->add($qrcode);
+            $qrcode->setOrdersDetails($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQrcode(Qrcode $qrcode): static
+    {
+        if ($this->qrcodes->removeElement($qrcode)) {
+            // set the owning side to null (unless already changed)
+            if ($qrcode->getOrdersDetails() === $this) {
+                $qrcode->setOrdersDetails(null);
+            }
+        }
 
         return $this;
     }

@@ -29,9 +29,13 @@ class Payement
     public function __construct()
     {
         $this->ordersDetails = new ArrayCollection();
+        $this->qrcodes = new ArrayCollection();
     }
     #[ORM\Column]
     private ?bool $IsPaid = null;
+
+    #[ORM\OneToMany(targetEntity: Qrcode::class, mappedBy: 'payement')]
+    private Collection $qrcodes;
 
     public function getId(): ?int
     {
@@ -99,6 +103,36 @@ class Payement
     public function setIsPaid(bool $IsPaid): static
     {
         $this->IsPaid = $IsPaid;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Qrcode>
+     */
+    public function getQrcodes(): Collection
+    {
+        return $this->qrcodes;
+    }
+
+    public function addQrcode(Qrcode $qrcode): static
+    {
+        if (!$this->qrcodes->contains($qrcode)) {
+            $this->qrcodes->add($qrcode);
+            $qrcode->setPayement($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQrcode(Qrcode $qrcode): static
+    {
+        if ($this->qrcodes->removeElement($qrcode)) {
+            // set the owning side to null (unless already changed)
+            if ($qrcode->getPayement() === $this) {
+                $qrcode->setPayement(null);
+            }
+        }
 
         return $this;
     }

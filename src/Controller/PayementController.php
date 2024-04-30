@@ -55,11 +55,8 @@ class PayementController extends AbstractController {
                 
             $entityManager->persist($payement);
             $entityManager->flush();
-    
 
-            
-
-            return $this->redirectToRoute('success_url');
+            return $this->redirectToRoute('app_qrcode', [], Response::HTTP_SEE_OTHER);
         }
 
     return $this->render('payement/index.html.twig', [
