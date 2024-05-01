@@ -1,8 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Billet electronique{% endblock %}
+
 {% block body %}
 	<div>
-		<h2 class="text-align-center">Billet de
-			{{ app.user.lastname }}
-			{{ app.user.firstname }}
+		<h2 class="text-align-center">Billet pour Studi.JeuxOlympiques <br>
+			Nom : {{ app.user.lastname }} <br>
+			Prénom : {{ app.user.firstname }}
 		</h2>
 	</div>			
 	
@@ -11,8 +15,12 @@
 	</div>
         
 	<div>
-		<h2>Studi.JeuxOlympiques vous remercie pour votre commande.</h2>
+        <img src="{{ asset('build/images/logostudijo.png') }}"  alt="logo Studi.JO" height="80">
 	</div>
+
+	<button type="button" class="btn btn-success">
+		<a class ="m-2"  href="{{ path('app_qrcode_pdf') }}">Télécharger votre billet au format PDF</a>
+    </button>
 			
 	
 {% endblock %}
