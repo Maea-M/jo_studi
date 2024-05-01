@@ -2,20 +2,18 @@
 
 namespace App\Controller;
 
-use App\Entity\Qrcode as EntityQrcode;
 use App\Repository\EvenementRepository;
 use App\Repository\OrdersDetailsRepository;
 use App\Repository\PayementRepository;
-use App\Service\PdfService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use chillerlan\QRCode\QRCode;
 use chillerlan\QRCode\QROptions;
-use chillerlan\QRCode\Output\QRFpdf;
 use Doctrine\ORM\EntityManagerInterface;
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use Symfony\Component\Filesystem\Path;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 require_once('./../vendor/autoload.php');
@@ -158,12 +156,12 @@ class QrcodeController extends AbstractController
         
         // Génère un nom de fichier unique pour le PDF
         $filename = uniqid().'.pdf'; 
-        $pdfPath = $this->getParameter('kernel.project_dir').'/public/pdf/'.$filename; 
-         // conserve en bdd
+        $pdfPath = $this->getParameter('kernel.project_dir').'/public/pdf/'.$filename;
+        $pathticket = pathinfo('./public/pdf');
         $user = $this->getUser();
         foreach ($user as $userticket) { 
-            $userticket->setPathticket($pdfPath); 
-            $entityManager->persist($user); 
+            $userticket->setPathticket($pathticket); 
+            $entityManager->persist($userticket); 
         }
         $entityManager->flush();
         

@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\{PasswordType, RepeatedType};
 use Symfony\Component\Form\{FormBuilderInterface, FormEvent, FormEvents};
 use EasyCorp\Bundle\EasyAdminBundle\Config\{Action, Actions, Crud, KeyValueStore};
 use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\TextFilter;
 
 class UserCrudController extends AbstractCrudController
 {
@@ -40,7 +41,7 @@ class UserCrudController extends AbstractCrudController
             TextField::new('lastname', 'nom'),
             TextField::new('firstname', 'prénom'),
             TextField::new('keyfirst', 'clé première'),
-
+            TextField::new('pathticket', 'ticket')
         ];
 
         $password = TextField::new('password')
