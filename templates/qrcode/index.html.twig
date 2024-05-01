@@ -1,9 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Billet electronique{% endblock %}
+{% block title %}Ticket !{% endblock %}
 
 {% block body %}
-	<div>
+<section class="m-5">
+<div>
 		<h2 class="text-align-center">Billet pour Studi.JeuxOlympiques <br>
 			Nom : {{ app.user.lastname }} <br>
 			Prénom : {{ app.user.firstname }}
@@ -15,12 +16,17 @@
 	</div>
         
 	<div>
-        <img src="{{ asset('build/images/logostudijo.png') }}"  alt="logo Studi.JO" height="80">
+        <img src="{{ asset('build/images/logostudijo.png') }}" alt="logo Studi.JO" height="80">
 	</div>
 
 	<button type="button" class="btn btn-success">
 		<a class ="m-2"  href="{{ path('app_qrcode_pdf') }}">Télécharger votre billet au format PDF</a>
     </button>
-			
+
+	<div>
+    <a href="{{ path('app_home') }}">Retour à l'accueil</a>
+    </div>
+</section>
+	
 	
 {% endblock %}

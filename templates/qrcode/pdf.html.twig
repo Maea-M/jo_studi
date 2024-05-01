@@ -1,0 +1,33 @@
+{% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+        {% block importmap %}{{ importmap('app') }}{% endblock %}
+{% endblock %}
+
+{% block body %}
+<style>
+    body{
+        text-align:center;
+    }
+</style>
+<section class="m-5">
+    <div>
+		<h2 class="text-align-center">Billet pour Studi.JeuxOlympiques <br>
+			Nom : {{ app.user.lastname }} <br>
+			Prénom : {{ app.user.firstname }}
+		</h2>
+	</div>
+
+	<div>
+		<img src="{{ qrCodeImage }}" alt="qr code" width='150' height='150'>
+	</div>
+        
+	<div>
+        <img src="{{ twiglogo }}" alt="logo Studi.JO" height="80">
+	</div>
+
+</section>
+{% endblock %}

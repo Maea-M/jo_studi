@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Qrcode as EntityQrcode;
 use App\Repository\EvenementRepository;
 use App\Repository\OrdersDetailsRepository;
 use App\Repository\PayementRepository;
@@ -14,9 +15,10 @@ use chillerlan\QRCode\QROptions;
 use chillerlan\QRCode\Output\QRFpdf;
 use Doctrine\ORM\EntityManagerInterface;
 use Dompdf\Dompdf;
+use Dompdf\Options;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-//require_once('./../vendor/autoload.php');
+require_once('./../vendor/autoload.php');
 
 class QrcodeController extends AbstractController
 {
@@ -24,6 +26,7 @@ class QrcodeController extends AbstractController
     #[Route('/qrcode', name: 'app_qrcode')]
     //https://github.com/chillerlan/php-qrcode
     //https://phppot.com/php/chillerlan-php-qrcode/
+    //https://docs.koala-framework.org/kwf-general-features/dom-pdf/
 
     public function index (PayementRepository $payementRepository): Response
     {
@@ -84,46 +87,94 @@ class QrcodeController extends AbstractController
     }
 
     #[Route('/qrcode/pdf', name: 'app_qrcode_pdf')]
-    public function generatePdf(EntityManagerInterface $entityManager, qrCodeImage $qrCodeImage=null): Response
-    {
-        $html = $this->renderView('qrcode/index.html.twig', [
-            'qrCodeImage' => $qrCodeImage,
-        ]);
-    
-        // Crée une nouvelle instance de Dompdf
-        $dompdf = new Dompdf(); 
+    public function generatePdf(EntityManagerInterface $entityManager, EvenementRepository $evenementRepository, PayementRepository $payementRepository, OrdersDetailsRepository $ordersDetailsRepository):Response
+    {        
+        // Récupérez l'utilisateur connecté
+        $user = $this->getUser();
 
-        // Charge le HTML à convertir en PDF
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        if ($this->getUser() !== $user) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        // Générez la clé sécrète
+            $firstKey = $user->getKeyfirst();
+            $payements = $payementRepository->findAll();
+            foreach($payements as $payement){
+                $payement->getSecondKey();
+            }
+            $SecondKey = $payement->getSecondKey();
+               //dd($SecondKey);
+            $secretKey = $firstKey . $SecondKey;
+               //dd($secretKey);
+    
+               //Créer le qrcode image
+            $options = new QROptions([
+                'version' => 5,
+                'eccLevel' => QRCode::ECC_H,
+                'scale' => 5,
+                'imageBase64' => true,
+                'imageTransparent' => false,
+                'foregroundColor' => '#000000',
+                'backgroundColor' => '#ffffff'
+            ]);
+
+        // Instantiating the code QR code class
+        $qrCode = new QRCode($options);
+
+        // generating the QR code image happens here
+        $qrCodeImage = $qrCode->render($secretKey);
+        
+        $imagesource = 'public/build/images/logostudijo.png';
+        //$ordersDetails = $ordersDetailsRepository->findBy['user'];
+        //dd($ordersDetails);
+        //foreach($ordersDetails as $orderDetail){
+        //    $orderDetail->getEvenement();
+        //}
+        //dd($orderDetail);
+
+        $html = $this->render('qrcode/pdf.html.twig', array(
+            'twiglogo' => $imagesource,
+            'qrCodeImage' => $qrCodeImage,
+            //'orderDetail' => $orderDetail, 
+        )
+        );
+
+
+        // Configuration de Dompdf 
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+        
+        $dompdf = new Dompdf($pdfOptions); 
+
         $dompdf->loadHtml($html); 
         
-        // Définit le format du papier sur lequel le PDF sera imprimé et son orientation
         $dompdf->setPaper('A4', 'portrait'); 
         
-        // Génère le PDF à partir du HTML chargé
         $dompdf->render(); 
         
         // Génère un nom de fichier unique pour le PDF
         $filename = uniqid().'.pdf'; 
-        
-        // Définit le chemin où le PDF sera enregistré
         $pdfPath = $this->getParameter('kernel.project_dir').'/public/pdf/'.$filename; 
-        
-        // Enregistre le PDF généré dans le chemin spécifié
-        file_put_contents($pdfPath, $dompdf->output()); 
-        
+         // conserve en bdd
         $user = $this->getUser();
         foreach ($user as $userticket) { 
             $userticket->setPathticket($pdfPath); 
             $entityManager->persist($user); 
         }
-        $entityManager->flush(); 
+        $entityManager->flush();
+        
+        // Enregistre le PDF généré dans le chemin spécifié
+        file_put_contents($pdfPath, $dompdf->output()); 
         
         // Envoie le PDF généré au navigateur pour être téléchargé
         $dompdf->stream($filename, [ "Attachment" => true ]); 
         
-        return new Response('', 200, [
-            'Content-Type' => 'application/pdf',
-        ]);
+        header('Content-Type: application/pdf');
+
     }
 
 }
