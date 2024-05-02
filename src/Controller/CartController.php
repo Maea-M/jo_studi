@@ -27,7 +27,15 @@ class CartController extends AbstractController
                 "evenement" => $evenement,
                 "quantite" => $quantite
             ];
-            $total += $evenement->getPrice() * $quantite;
+            if ($quantite == 2) {
+                $total += $evenement->getPrice() * $quantite -5;
+            }
+            elseif ($quantite == 4) {
+                $total += $evenement->getPrice() * $quantite -10;
+            }
+            else {
+                $total += $evenement->getPrice() * $quantite;
+            }
         }
 
         return $this->render('cart/index.html.twig', compact("dataPanier", "total"));
