@@ -16,7 +16,7 @@ use Dompdf\Options;
 use Symfony\Component\Filesystem\Path;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-require_once('./../vendor/autoload.php');
+//require_once('./../vendor/autoload.php');
 
 class QrcodeController extends AbstractController
 {
