@@ -65,18 +65,18 @@ class PayementController extends AbstractController {
     ]);
     }
 
-    #[Route('/success-url', name: 'success_url')]
-    public function successUrl(): Response
-    {
-        return $this->render('payement/success.html.twig', []);
-    }
+    //#[Route('/success-url', name: 'success_url')]
+    //public function successUrl(): Response
+    //{
+    //    return $this->render('payement/success.html.twig', []);
+    //}
 
 
-    #[Route('/cancel-url', name: 'cancel_url')]
-    public function cancelUrl(): Response
-    {
-        return $this->render('payement/cancel.html.twig', []);
-    }
+    //#[Route('/cancel-url', name: 'cancel_url')]
+    //public function cancelUrl(): Response
+    //{
+    ///    return $this->render('payement/cancel.html.twig', []);
+    //}
 /*
     #[Route('orders/checkout/', name: 'app_checkout')]
     public function checkout($stripeSK, OrdersDetailsRepository $ordersDetailsRepository, SessionInterface $session): Response
