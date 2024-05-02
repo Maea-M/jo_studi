@@ -13,6 +13,7 @@
                 <th>Evenement Sportif</th>
                 <th>Prix</th>
                 <th>Quantité</th>
+                <th>Offres promotionnelles </br>Duo 2 places(-5€) </br> Famille 4 places(-10€)</th>
                 <th>Total</th>
                 <th>Actions</th>
             </tr>
@@ -24,16 +25,32 @@
                     <td>{{ element.evenement.sport }}</td>
                     <td class="text-end">{{ element.evenement.price }} €</td>
                     <td>{{ element.quantite }}</td>
-                    <td class="text-end">{{ element.quantite * element.evenement.price }} €</td>
+                    <td> {% if element.quantite == 2 %}
+                            <p>Duo</p>
+                            {% elseif element.quantite == 4 %}
+                            <p>Famille<p>
+                            {% else %}
+                            <p>Solo</p>
+                        {% endif %}
+                    </td>
+                    <td class="text-end">
+                        {% if element.quantite == 2 %}
+                            {{ element.quantite * element.evenement.price - 5 }} €
+                            {% elseif element.quantite == 4 %}
+                            {{ element.quantite * element.evenement.price - 10 }} €
+                            {% else %}
+                            {{ element.quantite * element.evenement.price }} €
+                        {% endif %}
+                    </td>
                     <td>
                         <a href="{{path("app_cart_add", {id: element.evenement.id})}}" class="btn btn-success">
-                            <i class="fa-solid fa-circle-plus"></i>Ajouter
+                        Ajouter
                         </a>
                         <a href="{{path("app_cart_remove", {id: element.evenement.id})}}" class="btn btn-warning">
-                            <i class="fa-solid fa-minus"></i>Supprimer
+                        Supprimer
                         </a>
                         <a href="{{path("app_cart_delete", {id: element.evenement.id})}}" class="btn btn-danger">
-                            <i class="fa-solid fa-trash-can"></i>Supprimer tout
+                        Supprimer tout
                         </a>
                     </td>
                 </tr>
