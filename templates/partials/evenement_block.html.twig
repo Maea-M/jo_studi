@@ -1,7 +1,7 @@
 <div class="col-md-4 my-2 d-flex">
 	<div class="card w-100">
 		{% if evenement.imageName %}
-			<img src="{{ vich_uploader_asset(evenement, 'imageFile') }}" height="150" class="card-img-top" alt="dessin sport {{ evenement.sport }}">
+			<img src="{{ vich_uploader_asset(evenement, 'imageFile') }}" height="150" class="card-img-top object-fit-contain" alt="dessin sport {{ evenement.sport }}">
 		{% else %}
 			<img src="{{ asset('build/images/default-evenement.jpg') }}" class="card-img-top" alt="dessin sport {{ evenement.sport }}">
 		{% endif %}
