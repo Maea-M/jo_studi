@@ -30,6 +30,31 @@ class PageController extends AbstractController
         ]);
     }
 
+    #[Route('/politique', name: 'app_politiquedeconfidentialite')]
+    public function politique(): Response
+    {
+        return $this->render('page/politique.html.twig', [
+            'controller_name' => 'PageController',
+        ]);
+    }
+
+    
+    #[Route('/utilisation', name: 'app_conditions_utilisation')]
+    public function utilisation(): Response
+    {
+        return $this->render('page/utilisation.html.twig', [
+            'controller_name' => 'PageController',
+        ]);
+    }
+
+    #[Route('/vente', name: 'app_vente')]
+    public function vente(): Response
+    {
+        return $this->render('page/vente.html.twig', [
+            'controller_name' => 'PageController',
+        ]);
+    }
+
     #[Route('/profil', name: 'app_profil')]
     public function profil(): Response
     {

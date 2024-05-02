@@ -5,13 +5,13 @@
         <img src="{{ asset('build/images/logostudijo.png')}}"  alt="logo Studi.JO" height="80">
 
         <ul class="nav col-md-4 justify-content-end">
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Accueil</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Evènements</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Mentions légales</a></li>
+            <li class="nav-item"><a href="{{ path('app_home') }}" class="nav-link px-2 text-muted">Accueil</a></li>
+            <li class="nav-item"><a href="{{ path('app_evenement') }}" class="nav-link px-2 text-muted">Evènements</a></li>
+            <li class="nav-item"><a href="{{ path('app_mentionslegales') }}" class="nav-link px-2 text-muted">Mentions légales</a></li>
             <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQ</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Conditions générales de vente</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Conditions générales d'utilisation</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Politique de confidentialité</a></li>
+            <li class="nav-item"><a href="{{ path('app_vente') }}" class="nav-link px-2 text-muted">Conditions générales de vente</a></li>
+            <li class="nav-item"><a href="{{ path('app_conditions_utilisation') }}" class="nav-link px-2 text-muted">Conditions générales d'utilisation</a></li>
+            <li class="nav-item"><a href="{{ path('app_politiquedeconfidentialite') }}" class="nav-link px-2 text-muted">Politique de confidentialité</a></li>
         </ul>
     </footer>
 </div>
