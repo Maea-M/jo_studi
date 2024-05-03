@@ -8,6 +8,8 @@
 /var/
 /vendor/
 secret.php
+.env.test
+
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###
