@@ -1,10 +1,10 @@
 export default class Filter {
     constructor () {
+        console.log('essai1')
         /* 1er temps = il sert à définir les variables, les propriétés */
         this.form = document.querySelector('.js-filter-form')
         this.content = document.querySelector('.js-filter-form')
         this.sorting = document.querySelector('.js-filter-sorting')
-        console.log(sorting)
         /* 2nd temps = lancer les fonctions, les méthodes */
         this.init()
     }
@@ -13,11 +13,11 @@ export default class Filter {
     init(){
         this.bindEvents()
     }
-    
+
     /*Méthode pour sélectionner le clci qur le a*/
     bindEvents(){
         this.sorting.addEventListener('click', e=>{
-            if (e.target.tageName === 'A'){
+            if (e.target.tagName === 'A'){
                 console.log('clicl clqici')
                 e.preventDefault()
                 this.loadUrl(a.getAttribute('href'))
