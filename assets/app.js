@@ -1,4 +1,4 @@
-import './bootstrap.js';
+//import './bootstrap.js';
 /*
  * Welcome to your app's main JavaScript file!
  *
@@ -6,6 +6,11 @@ import './bootstrap.js';
  * which should already be in your base.html.twig.
  */
 import './styles/assets/css/app.css'
-import './scripts/filter.js'
+import Filter from './scripts/filter.js'
+
+
 //console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
-document.addEventListener('DOMContentLoaded', function() {})
+//document.addEventListener('DOMContentLoaded', function() {
+new Filter(document.querySelector('js-filter'))
+
+//})

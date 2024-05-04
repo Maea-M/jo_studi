@@ -1,46 +1,37 @@
-/**
- * @property {HtmlElement} form
- * @property {HtmlElement} sorting
- */
-
-console.log('hello filter')
 export default class Filter {
-
-    /**
-     * 
-     * @param {HTMLElement|null} element 
-     */
-    constructor (element){
-        if (element==null){
-            return
-        }
-        console.log('je suis en cours de construction')
-        this.form = element.querySelector('js-filter-form')
-        this.sorting = element.querySelector('js-filter-sorting')
-
-
-        this.bindEvents()
-
+    constructor () {
+        /* 1er temps = il sert à définir les variables, les propriétés */
+        this.form = document.querySelector('.js-filter-form')
+        this.content = document.querySelector('.js-filter-form')
+        this.sorting = document.querySelector('.js-filter-sorting')
+        console.log(sorting)
+        /* 2nd temps = lancer les fonctions, les méthodes */
+        this.init()
     }
-    /**
-     * Ajouter les comportements aux diéffrents éléments
-     */
+
+    /*Méthode pour lancer toutes les focntions de ma classe*/
+    init(){
+        this.bindEvents()
+    }
+    
+    /*Méthode pour sélectionner le clci qur le a*/
     bindEvents(){
-        this.sorting.querySelectorAll('a').forEach(a => {
-            a.addEventListenner('click', e=>{
+        this.sorting.addEventListener('click', e=>{
+            if (e.target.tageName === 'A'){
+                console.log('clicl clqici')
                 e.preventDefault()
                 this.loadUrl(a.getAttribute('href'))
-            })
-        });
+            }
+        })  
     }
-
+    
     async loadUrl(url){
         const response = await fetch(url, {
             headers: {
                 'X-Requested-With': 'XMLHttpRequest'
             }
         })
-
+    
         if (response.status >=200 && response.status <300){
             const data = await response.json()
             this.content.innerHTML = data.content
@@ -49,3 +40,4 @@ export default class Filter {
         }
     }
 }
+

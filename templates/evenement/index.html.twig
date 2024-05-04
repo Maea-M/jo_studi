@@ -6,10 +6,13 @@
     <h1>JO Studi  2024! Evènements sportifs</h1>
 
 <section class="js-filter">
-    <div class="js-filter-sorting"><a class="btn btn-primary">Trier par ville</a>
+    <div class="js-filter-form"></div>
+    
+    <div class="js-filter-sorting">
+        <a class="btn btn-primary">Trier par ville</a>
     </div>
     
-    <div class="row text-center">
+    <div class="row text-center js-filter-content">
         {% for evenement in evenements %}
             {% include "partials/evenement_block.html.twig" %}
         {% endfor %}
