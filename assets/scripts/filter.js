@@ -3,7 +3,7 @@
  * @property {HtmlElement} sorting
  */
 
-console.log('hello')
+console.log('hello filter')
 export default class Filter {
 
     /**

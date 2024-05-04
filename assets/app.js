@@ -7,5 +7,5 @@ import './bootstrap.js';
  */
 import './styles/assets/css/app.css'
 import './scripts/filter.js'
-
-console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
+//console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
+document.addEventListener('DOMContentLoaded', function() {})
