@@ -6,7 +6,6 @@
 {% block body %}
 	<h1>{{ evenement.sport }}</h1>
 	
-	<div class="row">
 		<div class="col-2">
 			{% if evenement.imageName %}
 				<img src="{{ vich_uploader_asset(evenement, 'imageFile') }}"  height="150" class="card-img-top object-fit-contain" alt="sport {{ evenement.sport }}">
@@ -58,5 +57,4 @@
 			<a href="{{path("app_cart_add", {id: evenement.id})}}" class="btn btn-success">
             <i class="fa-solid fa-circle-plus"></i> Ajouter au panier</a>
 		</div>
-	</div>
 {% endblock %}
