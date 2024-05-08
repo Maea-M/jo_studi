@@ -1,5 +1,5 @@
-/*
-        * constructor () {
+export default class Filter {
+    constructor () {
             /* 1er temps = il sert à définir les variables, les propriétés */
             //this.input = document.querySelectorAll("input")
             this.form = document.querySelector('.js-filter-form')
@@ -48,4 +48,5 @@
                 console.error(response)
             }
         }
-    //}
+    
+}

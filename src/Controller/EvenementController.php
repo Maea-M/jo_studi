@@ -19,10 +19,11 @@ class EvenementController extends AbstractController
     {
         $evenements = $evenementRepository->findBy([], ['id'=>'DESC']);
 
-        if ($request->isXmlHttpRequest()){
+        //on vérrfie qsi on a ajax
+        if ($request->get('ajax')){
             return new JsonResponse([
-                'content' => $this->renderView('evenement/sortEvenement.html.twig', ['evenements'=>$evenements]),
-            ]);
+                'content' => $this->renderView('evenement/index.html.twig', compact('evenements'))]
+            );
         }
 
         return $this->render('evenement/index.html.twig', [
