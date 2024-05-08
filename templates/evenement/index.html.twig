@@ -6,7 +6,14 @@
     <h1>JO Studi  2024! Evènements sportifs</h1>
 
 <section class="js-filter">
-    <div class="js-filter-form"></div>
+    <div class="js-filter-form">
+        {% for evenement in evenements %}
+            <form id="filters">
+                <input type="checkbox" name="categories[]" id="cat{{ evenement.id}}" value="{{ evenement.id }}">
+                <label for="cat{{ evenement.id}}">{{ evenement.location}}</label>
+            </form>
+        {% endfor %}
+    </div>
     
     <div class="js-filter-sorting">
         <a class="btn btn-primary">Trier par ville</a>
@@ -20,4 +27,8 @@
 
 </section>
 
+{% endblock %}
+
+{% block javascripts %}
+    <script type ="module" src="{{ asset('scripts/filter.js')}}"></script>
 {% endblock %}

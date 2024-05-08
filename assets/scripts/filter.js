@@ -1,43 +1,29 @@
-export default class Filter {
-    constructor () {
-        console.log('essai1')
-        /* 1er temps = il sert à définir les variables, les propriétés */
-        this.form = document.querySelector('.js-filter-form')
-        this.content = document.querySelector('.js-filter-form')
-        this.sorting = document.querySelector('.js-filter-sorting')
-        /* 2nd temps = lancer les fonctions, les méthodes */
-        this.init()
-    }
+window.onload = () => {
+    const FiltersForm = document.querySelector('#filters')
 
-    /*Méthode pour lancer toutes les focntions de ma classe*/
-    init(){
-        this.bindEvents()
-    }
+    // on boucle sur les inputs
+    document.querySelectorAll('#filters input').forEach(input =>{
+        input.addEventListener('change', ()=>{
+            const Form = new FormData(FiltersForm)
 
-    /*Méthode pour sélectionner le clci qur le a*/
-    bindEvents(){
-        this.sorting.addEventListener('click', e=>{
-            if (e.target.tagName === 'A'){
-                console.log('clicl clqici')
-                e.preventDefault()
-                this.loadUrl(a.getAttribute('href'))
-            }
-        })  
-    }
-    
-    async loadUrl(url){
-        const response = await fetch(url, {
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest'
-            }
+            //On fabrique l'url
+            const Params = new URLSearchParams()
+            Form.forEach((value, key) => {
+                Params.append(value, key)
+            })
+
+            // on récupère l'url active
+            const Url =  new URL(window.location.href)
+            console.log(Url)
+
+            //on lance la requête ajax
+            fetch(Url.pathname+ '?' + Params.toString() + '&ajax=1',{
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            } ).then(response => {
+                console.log(response)
+            }).catch(e => alert(e))
         })
-    
-        if (response.status >=200 && response.status <300){
-            const data = await response.json()
-            this.content.innerHTML = data.content
-        } else{
-            console.error(response)
-        }
-    }
+    })
 }
-
