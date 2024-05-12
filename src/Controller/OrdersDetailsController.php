@@ -23,7 +23,6 @@ class OrdersDetailsController extends AbstractController
         $ordersDetails = $ordersDetailsRepository->findBy(['IsPaid' => false]);
         return $this->render('orders_details/index.html.twig', [
             'ordersDetails' => $ordersDetails,
-            /*dd($ordersDetails)*/
         ]);
     }
 }

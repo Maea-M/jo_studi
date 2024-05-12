@@ -5,8 +5,8 @@
 {% block body %}
     <h1>JO Studi  2024! Evènements sportifs</h1>
 
-<section id="content">
-    <div>
+<section>
+    <div class="row">
         {% for evenement in evenements %}
             <form id="filters">
                 <input type="checkbox" name="categories[]" id="cat{{ evenement.id}}" value="{{ evenement.id }}">
@@ -15,7 +15,7 @@
         {% endfor %}
     </div>
     
-    <div class="row text-center">
+    <div class="row text-center" id="content">
         {% for evenement in evenements %}
             {% include "partials/evenement_block.html.twig" %}
         {% endfor %}
