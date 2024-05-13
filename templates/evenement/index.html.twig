@@ -5,15 +5,15 @@
 {% block body %}
     <h1>JO Studi  2024! Evènements sportifs</h1>
 
-<section>
+<section class="container">
     <div class="row">
+
         {% for evenement in evenements %}
             <form id="filters">
                 <input type="checkbox" name="categories[]" id="cat{{ evenement.id}}" value="{{ evenement.id }}">
                 <label for="cat{{ evenement.id}}">{{ evenement.location}}</label>
             </form>
         {% endfor %}
-    </div>
     
     <div class="row text-center" id="content">
         {% for evenement in evenements %}

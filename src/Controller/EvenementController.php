@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Data\SearchData;
 use App\Entity\Evenement;
+use App\Form\SearchForm;
 use App\Repository\EvenementRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -19,10 +21,16 @@ class EvenementController extends AbstractController
     {
         $evenements = $evenementRepository->findBy([], ['id'=>'DESC']);
 
+
+        //faire un filtre
+        $filters = $evenementRepository->findAll();
+
+
+
         //on vérrfie qsi on a ajax
         if ($request->get('ajax')){
             return new JsonResponse([
-                'content' => $this->renderView('evenement/index.html.twig', compact('evenements'))]
+                'content' => $this->renderView('evenement/index.html.twig', compact('evenements', 'filters'))]
             );
         }
 

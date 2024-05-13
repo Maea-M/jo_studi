@@ -41,10 +41,10 @@ class PayementController extends AbstractController {
         if ($form->isSubmitted() && $form->isValid()) {
             // trouver l'utilisateur lié au paiement
             $payement->setUser($user);
+            
             //trouver les paiements non faits
             $ordersDetails = $ordersDetailsRepository->findBy(['IsPaid'=>false]);
-            //dd($ordersDetails);
-            //payement, ispaid... est à null
+
             foreach($ordersDetails as $orderDetail){
                 $orderDetail->setPayement($payement);
                 $orderDetail->setIsPaid(true);

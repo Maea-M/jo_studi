@@ -21,28 +21,34 @@ class EvenementRepository extends ServiceEntityRepository
         parent::__construct($registry, Evenement::class);
     }
 
-//    /**
-//     * @return Evenement[] Returns an array of Evenement objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('e')
-//            ->andWhere('e.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('e.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @return Evenement[] Retourne un tableau avec la recherche
+     */
+    public function findSearch(): array
+    {
+        return $this->findAll();
+    }
 
-//    public function findOneBySomeField($value): ?Evenement
-//    {
-//        return $this->createQueryBuilder('e')
-//            ->andWhere('e.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function getEvenementFilter($filters = null){
+        $query = $this->createQueryBuilder('a')
+            ->where('a.active = 1');
+
+        // On filtre les données
+        if($filters != null){
+            $query->andWhere('a.location IN(:cats)')
+                ->setParameter(':cats', array_values($filters));
+        }
+        
+        return $query->getQuery()->getResult();
+    }
+
+    public function findOneBySomeField($value): ?Evenement
+    {
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.location = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 }
