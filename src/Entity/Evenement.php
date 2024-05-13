@@ -32,7 +32,7 @@ class Evenement
     private ?int $place = null;
 
     #[Vich\UploadableField(mapping: 'evenements', fileNameProperty: 'imageName', size: 'imageSize')]
-    #[Assert\File(maxSize: '1024k', mimeTypes: ['image/jpg', 'image/png'])]
+    //#[Assert\File(maxSize: '1024k', mimeTypes: ['image/jpg', 'image/png'])]
     private ?File $imageFile = null;
 
     #[ORM\Column(nullable: true)]
