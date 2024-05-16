@@ -15,7 +15,7 @@
 
 			{% if 'ROLE_USER' in app.user.roles|default('undefined') %}
 				<p class="m-2">Bienvenue {{ app.user.firstname}}  </p>
-                <a class ="m-1"  href="{{ path('app_profil') }}"">Votre compte</a>
+                <a class ="m-1"  href="{{ path('app_profil') }}">Votre compte</a>
                 <a class ="m-2" href="{{ path('app_logout') }}">Se déconnecter</a>
 
                 {% else %}							
